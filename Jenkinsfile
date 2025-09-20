@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Variables d'environnement
-        DOCKER_HUB_REPO = 'laye769/projet_java'   // Votre repo Docker Hub
+        DOCKER_HUB_REPO = 'palaye769/projet_java'   // Votre repo Docker Hub
         DOCKER_HUB_CREDENTIALS = 'docker-hub-new'       // ID des credentials Docker Hub dans Jenkins
         RENDER_DEPLOY_HOOK = 'render-webhook'           // ID du webhook de déploiement Render
         RENDER_APP_URL = 'render-app-url'               // ID de l'URL de votre app Render
