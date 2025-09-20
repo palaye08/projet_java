@@ -1,5 +1,5 @@
-# Utiliser une image Java 17 officielle comme base
-FROM openjdk:17-jdk-slim as build
+# Utiliser Amazon Corretto comme image de base pour le build
+FROM amazoncorretto:17-alpine-jdk AS build
 
 # Définir le répertoire de travail
 WORKDIR /app
@@ -21,14 +21,14 @@ COPY src src
 # Construire l'application
 RUN ./mvnw clean package -DskipTests
 
-# Stage de production - image plus légère
-FROM openjdk:17-jre-slim
+# Stage de production - image plus légère avec JRE seulement
+FROM amazoncorretto:17-alpine
 
 # Installer curl pour le health check
-RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache curl
 
 # Créer un utilisateur non-root pour la sécurité
-RUN groupadd -r spring && useradd -r -g spring spring
+RUN addgroup -g 1001 -S spring && adduser -u 1001 -S spring -G spring
 
 # Définir le répertoire de travail
 WORKDIR /app
